@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM - Operações</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .atm-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="atm-container">
+    <h1>Bem-vindo ao ATM</h1>
+    <!-- Exibe o saldo do usuário -->
+    <p>Saldo atual: R$ <span th:text="${saldo}">0.00</span></p>
+
+    <!-- Formulário para saque -->
+    <form action="/api/atm/sacar" method="post">
+        <div class="input-group">
+            <label for="valorSaque">Valor do Saque:</label>
+            <input type="number" id="valorSaque" name="valor" step="0.01" min="0.01" required>
+        </div>
+        <button type="submit">Sacar</button>
+    </form>
+
+    <!-- Formulário para depósito -->
+    <form action="/api/atm/depositar" method="post" style="margin-top: 20px;">
+        <div class="input-group">
+            <label for="valorDeposito">Valor do Depósito:</label>
+            <input type="number" id="valorDeposito" name="valor" step="0.01" min="0.01" required>
+        </div>
+        <button type="submit">Depositar</button>
+    </form>
+
+    <!-- Botão para logout -->
+    <form action="/api/atm/logout" method="post" style="margin-top: 20px;">
+        <button type="submit" style="background-color: #f44336;">Logout</button>
+    </form>
+</div>
+
+</body>
+</html>

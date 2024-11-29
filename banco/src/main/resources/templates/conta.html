@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conta do Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .info {
+            margin: 10px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            color: green;
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-container a {
+            width: 48%;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Bem-vindo, <span th:text="${usuario.nome}">Nome</span></h2>
+        <div class="info">
+            <p><strong>Email:</strong> <span th:text="${usuario.email}">Email</span></p>
+            <p><strong>ID:</strong> <span th:text="${usuario.id}">ID</span></p>
+            <p>Saldo Atual: R$ <span th:text="${saldo}">0.00</span></p>
+        </div>
+
+        <form action="/api/bank/logout" method="POST">
+            <button type="submit">Sair</button>
+        </form>
+
+        <div class="button-container">
+            <a href="/api/bank/transferir" class="button">Transferir Saldo</a>
+            <a href="/api/bank/extrato" class="button">Ver Extrato</a>
+        </div>
+
+        <div class="message" th:if="${message != null}">
+            <span th:text="${message}"></span>
+        </div>
+        <div class="error" th:if="${error != null}">
+            <span th:text="${error}"></span>
+        </div>
+    </div>
+</body>
+</html>

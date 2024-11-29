@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrato - Conta do Usuário</title>
+    <style>
+        /* Estilos para as transações */
+        .transferencia-recebida {
+            color: green; /* Cor verde para transações recebidas */
+        }
+
+        .transferencia-enviada {
+            color: red; /* Cor vermelha para transações enviadas */
+        }
+
+        .deposito {
+            color: green; /* Cor verde para depósitos */
+        }
+
+        .saque {
+            color: red; /* Cor vermelha para saques */
+        }
+
+        /* Outros estilos de layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Extrato - <span th:text="${usuario.nome}">Nome do Usuário</span></h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="transacao : ${transacoes}">
+                    <!-- Verificar se é uma transferência enviada ou recebida -->
+                    <td th:class="${transacao.idUsuarioOrigem == usuario.id ? 'transferencia-enviada' : (transacao.idUsuarioDestino == usuario.id ? 'transferencia-recebida' : '')}" th:text="${transacao.id}"></td>
+                    <td th:class="${transacao.idUsuarioOrigem == usuario.id ? 'transferencia-enviada' : (transacao.idUsuarioDestino == usuario.id ? 'transferencia-recebida' : '')}" th:text="${transacao.tipo}"></td>
+                    <td th:class="${transacao.idUsuarioOrigem == usuario.id ? 'transferencia-enviada' : (transacao.idUsuarioDestino == usuario.id ? 'transferencia-recebida' : '')}" th:text="${transacao.valor}"></td>
+                    <td th:class="${transacao.idUsuarioOrigem == usuario.id ? 'transferencia-enviada' : (transacao.idUsuarioDestino == usuario.id ? 'transferencia-recebida' : '')}" th:text="${#dates.format(transacao.data, 'dd/MM/yyyy HH:mm')}"></td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(transacoes)}">
+                    <td colspan="4" style="text-align:center;">Nenhuma transação encontrada.</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/api/bank/conta" class="back-button">Voltar para Conta</a>
+    </div>
+</body>
+</html>
